@@ -4,7 +4,10 @@
 <style>body{margin:0;background:#102a1c;color:white;font:14px system-ui;display:flex;justify-content:center;align-items:center;min-height:100vh}</style>
 <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" async defer></script>
 </head><body><div id="captcha"></div><script>
-function send(message) { if (window.TurnstileBridge) window.TurnstileBridge.postMessage(message); }
+function send(message) {
+  if (window.TurnstileBridge) window.TurnstileBridge.postMessage(message);
+  if (window.parent !== window) window.parent.postMessage(message, '*');
+}
 window.onload = function() {
   function waitForTurnstile() {
     if (!window.turnstile) { setTimeout(waitForTurnstile, 100); return; }
